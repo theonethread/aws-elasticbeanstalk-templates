@@ -2,7 +2,7 @@
 # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
 # EXPECTED EXISTING RESOURCES:
-# reloaded-eb-admin-key (EC2 KeyPair)
+# admin-eb-admin-key (EC2 KeyPair)
 # aws-elasticbeanstalk-ec2-role (IAM Role)
 # aws-elasticbeanstalk-service-role (IAM Role)
 
@@ -73,7 +73,7 @@ OptionSettings:
         # CLOUDFORMATION OUTPUT: BastionSecurityGroupId
         SSHSourceRestriction: tcp, 22, 22, <<BASTION-SECURITY-GROUP>>
         # DEFAULT: AWS EC2 Key Pair managed by dev-ops
-        EC2KeyName: reloaded-eb-admin-key
+        EC2KeyName: admin-eb-admin-key
         # DEFAULT: AWS EB profile managed by dev-ops
         IamInstanceProfile: aws-elasticbeanstalk-ec2-role
         # DEFAULT: only allow Instance MetaData Service v2 (token based authentication)

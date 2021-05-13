@@ -1,8 +1,8 @@
 {
-  "name": "hitech-eb-nodejs-boilerplate",
+  "name": "eb-nodejs-boilerplate",
   "version": "0.0.1",
   "description": "POC nodejs elastic beanstalk application",
-  "author": "HiTech Games Ltd. (http://hitech.games/)",
+  "author": "Barnabas Bucsy (https://github.com/theonethread)",
   "license": "UNLICENSED",
   "private": true,
   "keywords": [],
