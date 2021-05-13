@@ -1,0 +1,11 @@
+.DS_Store
+.localized
+.xcode
+
+.dist
+.tmp
+.log
+
+.ebprojects
+node_modules
+vendor

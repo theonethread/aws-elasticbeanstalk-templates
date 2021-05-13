@@ -1,0 +1,15 @@
+{
+  "name": "hitech-eb-nodejs-boilerplate",
+  "version": "0.0.1",
+  "description": "POC nodejs elastic beanstalk application",
+  "author": "HiTech Games Ltd. (http://hitech.games/)",
+  "license": "UNLICENSED",
+  "private": true,
+  "keywords": [],
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "fastify": "^3.15.1"
+  }
+}
