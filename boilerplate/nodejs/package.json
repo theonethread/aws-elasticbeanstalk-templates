@@ -1,5 +1,5 @@
 {
-  "name": "eb-nodejs-boilerplate",
+  "name": "custom-eb-nodejs-boilerplate",
   "version": "0.0.1",
   "description": "POC nodejs elastic beanstalk application",
   "author": "Barnabas Bucsy (https://github.com/theonethread)",

@@ -8,11 +8,11 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", RequestHandler)
-	http.HandleFunc("/v1/healthcheck", RequestHandler)
+	http.HandleFunc("/<<HEALTH-CHECK-PATH>>/", RequestHandler)
+	http.HandleFunc("/<<APPLICATION>>/", RequestHandler)
 	port := GetEnvDefault("SERVER_PORT", "8000")
+	log.Printf("Will listen on port %s\n", port)
 	http.ListenAndServe(":"+port, nil)
-	log.Printf("Listening on port %s\n", port)
 }
 
 func RequestHandler(w http.ResponseWriter, r *http.Request) {

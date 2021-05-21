@@ -2,7 +2,7 @@
 # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
 # EXPECTED EXISTING RESOURCES:
-# admin-eb-admin-key (EC2 KeyPair)
+# reloaded-eb-admin-key (EC2 KeyPair)
 # aws-elasticbeanstalk-ec2-role (IAM Role)
 # aws-elasticbeanstalk-service-role (IAM Role)
 
@@ -29,7 +29,7 @@ OptionSettings:
         VPCId: <<VPC-ID>>
         # CLOUDFORMATION OUTPUT: PrivateSubnetAllId
         Subnets: <<COMMA-SEPARATED-SUBNET-IDS>>
-        # DEFAULT: "internal" (for internal applications)
+        # DEFAULT
         ELBScheme: internal
         # DEFAULT: never use public instance IP address
         AssociatePublicIpAddress: false
@@ -37,23 +37,23 @@ OptionSettings:
         # ELASTIC BEANSTALK SUBSTITUTE: instance type(s)
         InstanceTypes: <<COMMA-SEPARATED-INSTANCE-TYPES>>
     aws:elbv2:loadbalancer:
-        # CLOUDFORMATION OUTPUT: PrivateAlbId (for internal applications)
+        # CLOUDFORMATION OUTPUT: PrivateAlbId
         SharedLoadBalancer: <<LOAD-BALANCER-ARN>>
-        # CLOUDFORMATION OUTPUT: PrivateAlbSecurityGroupId (for internal applications)
+        # CLOUDFORMATION OUTPUT: PrivateAlbSecurityGroupId
         ManagedSecurityGroup: <<ALB-MANAGED-SECURITY-GROUP>>
-        # CLOUDFORMATION OUTPUT: PrivateAlbSecurityGroupId (for internal applications)
+        # CLOUDFORMATION OUTPUT: PrivateAlbSecurityGroupId
         SecurityGroups: <<COMMA-SEPARATED-ALB-SECURITY-GROUPS>>
     # ELASTIC BEANSTALK SUBSTITUTE: capitalized application name
     aws:elbv2:listenerrule:directToApp<<CAPITALIZED-APPLICATION>>:
         # NOTE: we use the public hosted DNS name for internal routing too
-        # CLOUDFORMATION OUTPUT: PublicAlbHostedDns (for internal applications)
+        # CLOUDFORMATION OUTPUT: PublicAlbHostedDns
         HostHeaders: <<HOSTED-DNS>>
         # ELASTIC BEANSTALK SUBSTITUTE: application name
         PathPatterns: /<<APPLICATION>>/*
         # DEFAULT
         Priority: 20
         Process: default
-    # NOTE: port 80 HTTP is only accessible from inside the VPC (for internal applications)
+    # NOTE: port 80 HTTP is only accessible from inside the VPC
     aws:elbv2:listener:80:
         # ELASTIC BEANSTALK SUBSTITUTE: capitalized application name
         Rules: directToApp<<CAPITALIZED-APPLICATION>>
@@ -64,14 +64,15 @@ OptionSettings:
         MaxSize: 3
     aws:autoscaling:launchconfiguration:
         # CLOUDFORMATION OUTPUT: PrivateInstanceSecurityGroupId
+        # OPTIONAL CLOUDFORMATION OUTPUT: CacheInstanceSecurityGroupId, RdsInstanceSecurityGroupId
         SecurityGroups: <<COMMA-SEPARATED-INSTANCE-SECURITY-GROUPS>>
         # CLOUDFORMATION OUTPUT: BastionSecurityGroupId
         SSHSourceRestriction: tcp, 22, 22, <<BASTION-SECURITY-GROUP>>
-        # DEFAULT: AWS EC2 Key Pair managed by dev-ops
-        EC2KeyName: admin-eb-admin-key
+        # ELASTIC BEANSTALK SUBSTITUTE: AWS EC2 Key Pair for SSH connection
+        EC2KeyName: <<EC2-KEY-PAIR>>
         # DEFAULT: AWS EB profile managed by dev-ops
         IamInstanceProfile: aws-elasticbeanstalk-ec2-role
-        # DEFAULT: only allow Instance MetaData Service v2 (token based authentication)
+        # DEFAULT: only allow Instance MetaData Service v2 (with token based authentication)
         DisableIMDSv1: true
     aws:elasticbeanstalk:environment:
         # DEFAULT: load balancer settings
@@ -83,8 +84,11 @@ OptionSettings:
     aws:elasticbeanstalk:environment:process:default:
         # DEFAULT
         HealthCheckInterval: 20 # sec
+        HealthCheckTimeout: 5 # sec
         HealthyThresholdCount: 3
         UnhealthyThresholdCount: 3
+        # StickinessEnabled: true
+        # StickinessLBCookieDuration: 604800
     aws:elasticbeanstalk:command:
         # DEFAULT
         DeploymentPolicy: AllAtOnce
@@ -95,10 +99,10 @@ OptionSettings:
         LogPublicationControl: true
     aws:elasticbeanstalk:managedactions:
         ManagedActionsEnabled: false
-        # TODO
-        # ManagedActionsEnabled: true
-        # PreferredStartTime: TUE:03:00
-        # # default AWS EB profile managed by dev-ops
-        # ServiceRoleForManagedUpdates: aws-elasticbeanstalk-service-role
+    # TODO
+    #     ManagedActionsEnabled: true
+    #     PreferredStartTime: TUE:03:00
+    #     # default AWS EB profile managed by dev-ops
+    #     ServiceRoleForManagedUpdates: aws-elasticbeanstalk-service-role
     # aws:elasticbeanstalk:managedactions:platformupdate:
     #     UpdateLevel: minor

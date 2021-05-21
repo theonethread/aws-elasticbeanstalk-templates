@@ -12,8 +12,6 @@ const run = async () => {
             pid: process.pid
         };
     });
-    // the Application Load Balancer will request health check without
-    // the conditional path segment (internally)
     // ELASTIC BEANSTALK SUBSTITUTE: health check path
     server.get("/<<HEALTH-CHECK-PATH>>/", async (request, reply) => {
         return {
