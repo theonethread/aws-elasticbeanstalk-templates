@@ -2,7 +2,7 @@
 # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
 # EXPECTED EXISTING RESOURCES:
-# reloaded-eb-admin-key (EC2 KeyPair)
+# EC2 KeyPair for SSH connection
 # aws-elasticbeanstalk-ec2-role (IAM Role)
 # aws-elasticbeanstalk-service-role (IAM Role)
 
