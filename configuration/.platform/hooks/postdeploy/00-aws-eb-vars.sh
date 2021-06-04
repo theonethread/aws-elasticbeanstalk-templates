@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# WARN: always ensure line endings are set to LF!
 
 AWS_REGION=$(cat /opt/elasticbeanstalk/config/ebenvinfo/region)
 AWS_ENV_ID=$(cat /opt/elasticbeanstalk/config/ebenvinfo/envid)
