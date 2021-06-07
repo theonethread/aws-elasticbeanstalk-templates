@@ -74,6 +74,11 @@ OptionSettings:
         IamInstanceProfile: aws-elasticbeanstalk-ec2-role
         # DEFAULT: only allow Instance MetaData Service v2 (with token based authentication)
         DisableIMDSv1: true
+    # TODO
+    # aws:elasticbeanstalk:cloudwatch:logs:
+    #     StreamLogs: true
+    #     DeleteOnTerminate: false
+    #     RetentionInDays: 400
     aws:elasticbeanstalk:environment:
         # DEFAULT: load balancer settings
         EnvironmentType: LoadBalanced
@@ -92,8 +97,10 @@ OptionSettings:
     aws:elasticbeanstalk:command:
         # DEFAULT
         DeploymentPolicy: AllAtOnce
-        # TODO
-        # DeploymentPolicy: Immutable
+    # TODO
+    #     DeploymentPolicy: Immutable
+    # aws:autoscaling:updatepolicy:rollingupdate:
+    #     RollingUpdateType: Immutable
     aws:elasticbeanstalk:hostmanager:
         # DEFAULT: publish logs to S3
         LogPublicationControl: true
