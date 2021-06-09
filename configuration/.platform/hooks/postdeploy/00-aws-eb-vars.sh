@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Export AWS environment specific values for use in EB applications and terminal
 
 AWS_REGION=$(cat /opt/elasticbeanstalk/config/ebenvinfo/region)
 AWS_ENV_ID=$(cat /opt/elasticbeanstalk/config/ebenvinfo/envid)
@@ -11,4 +12,3 @@ AWS_ENV_ID=$AWS_ENV_ID
 AWS_EC2_ID=$AWS_EC2_ID
 EOT
 chmod 400 /opt/elasticbeanstalk/deployment/env
-systemctl restart web.service
