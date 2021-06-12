@@ -2,7 +2,7 @@
 # Export AWS environment specific values for use in EB applications and terminal
 
 chmod 666 /opt/elasticbeanstalk/deployment/env
-cat <<EOT>> /opt/elasticbeanstalk/deployment/env
+cat <<EOT >> /opt/elasticbeanstalk/deployment/env
 AWS_REGION=$(cat /opt/elasticbeanstalk/config/ebenvinfo/region)
 AWS_STACK_ID=$(cat /opt/elasticbeanstalk/config/ebenvinfo/stackid)
 AWS_ENV_ID=$(cat /opt/elasticbeanstalk/config/ebenvinfo/envid)
